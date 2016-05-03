@@ -1,3 +1,19 @@
+//! The purpose of this crate is to extend the `UpperHex` and `LowerHex`
+//! traits to slices, as well as the integers it is currently implemented for.
+//!
+//! # Examples
+//!
+//! ```rust
+//! extern crate hex_slice;
+//! use hex_slice::AsHex;
+//!
+//! fn main() {
+//!     let foo = vec![0u32, 1 ,2 ,3];
+//!     println!("{:x}", foo.as_hex());
+//! }
+//! ```
+
+
 use std::fmt;
 
 pub struct Hex<'a, T: 'a>(&'a [T]);
