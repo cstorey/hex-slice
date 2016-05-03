@@ -1,0 +1,3 @@
+var searchIndex = {};
+searchIndex["hex_slice"] = {"doc":"The purpose of this crate is to extend the `UpperHex` and `LowerHex`\ntraits to slices, as well as the integers it is currently implemented for.","items":[[3,"Hex","hex_slice","",null,null],[8,"AsHex","","",null,null],[16,"Item","","",0,null],[10,"as_hex","","",0,{"inputs":[{"name":"ashex"}],"output":{"name":"hex"}}],[11,"hex","","",1,null],[11,"fmt","","",1,{"inputs":[{"name":"hex"},{"name":"formatter"}],"output":{"name":"result"}}],[11,"fmt","","",1,{"inputs":[{"name":"hex"},{"name":"formatter"}],"output":{"name":"result"}}]],"paths":[[8,"AsHex"],[3,"Hex"]]};
+initSearch(searchIndex);
