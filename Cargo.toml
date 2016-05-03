@@ -2,5 +2,7 @@
 name = "hex-slice"
 version = "0.1.0"
 authors = ["Ceri Storey <cez@necrofish.org.uk>"]
+repository = "https://github.com/cstorey/hex-slice/"
+documentation = "https://cstorey.github.io/hex-slice/hex_slice/index.html"
 
 [dependencies]
