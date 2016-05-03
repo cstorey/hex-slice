@@ -22,16 +22,15 @@ before_script:
 
 env:
   - TRAVIS_CARGO_NIGHTLY_FEATURE=""
-  - TRAVIS_CARGO_NIGHTLY_FEATURE="" EXTRA='--features serde' DOC=t
 
 script:
 - travis-cargo build -- $EXTRA
 - travis-cargo test  -- $EXTRA
-- [ ! -z "$DOC" ] && travis-cargo --only stable doc
+- travis-cargo --only stable doc
 after_success:
   # upload the documentation from the build with stable (automatically only actually
   # runs on the master branch, not individual PRs)
-  - [ ! -z "$DOC" ] && travis-cargo --only stable doc-upload
+  - travis-cargo --only stable doc-upload
 
 
 matrix:
