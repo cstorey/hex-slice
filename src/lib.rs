@@ -15,6 +15,7 @@
 
 
 use std::fmt;
+use std::fmt::Write;
 
 pub struct Hex<'a, T: 'a>(&'a [T]);
 
@@ -33,7 +34,10 @@ impl<'a, T: fmt::LowerHex> fmt::LowerHex for Hex<'a, T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         try!(write!(f, "["));
         for (i, val) in self.0.iter().enumerate() {
-            try!(write!(f, "{}{:x}", if i > 0 { " " } else { "" }, val ))
+            if i > 0 {
+                try!(f.write_char(' '));
+            }
+            try!(fmt::LowerHex::fmt(val, f));
         }
         try!(write!(f, "]"));
         Ok(())
@@ -44,7 +48,10 @@ impl<'a, T: fmt::UpperHex> fmt::UpperHex for Hex<'a, T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         try!(write!(f, "["));
         for (i, val) in self.0.iter().enumerate() {
-            try!(write!(f, "{}{:X}", if i > 0 { " " } else { "" }, val ))
+            if i > 0 {
+                try!(f.write_char(' '));
+            }
+            try!(fmt::UpperHex::fmt(val, f));
         }
         try!(write!(f, "]"));
         Ok(())
