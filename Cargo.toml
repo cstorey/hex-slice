@@ -1,10 +1,12 @@
 [package]
-name = "hex-slice"
-version = "0.1.0"
-description = "Extends the std::fmt::*Hex traits to slices"
 authors = ["Ceri Storey <cez@necrofish.org.uk>"]
-repository = "https://github.com/cstorey/hex-slice/"
+description = "Extends the std::fmt::*Hex traits to slices"
 documentation = "https://cstorey.github.io/hex-slice/hex_slice/index.html"
 license = "MIT"
+name = "hex-slice"
+repository = "https://github.com/cstorey/hex-slice/"
+version = "0.1.0"
 
-[dependencies]
+[dev-dependencies.suppositions]
+git = "https://github.com/cstorey/suppositions.git"
+optional = false
