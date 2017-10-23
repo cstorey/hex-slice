@@ -1,5 +1,7 @@
 # hex-slice
 
+[![Build Status](https://travis-ci.org/cstorey/hex-slice.svg?branch=master)](https://travis-ci.org/cstorey/hex-slice)
+
 Renders a slice of integers (or anythign lese that supports the
 [LowerHex](https://doc.rust-lang.org/std/fmt/trait.LowerHex.html) or [UpperHex](https://doc.rust-lang.org/std/fmt/trait.UpperHex.html) traits as hex. For example, this:
 
