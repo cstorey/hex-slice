@@ -15,11 +15,7 @@
 
 
 use std::fmt;
-<<<<<<< HEAD
-use std::mem::size_of;
-=======
 use std::fmt::Write;
->>>>>>> master
 
 pub struct Hex<'a, T: 'a>(&'a [T]);
 

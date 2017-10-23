@@ -20,7 +20,7 @@ fn should_start_and_end_with_square_brackets() {
 
 #[test]
 fn should_group_u8_as_blocks_of_two() {
-    property(vecs(u8s()).map(|data| (data.clone(), format!("{:x}", data.as_hex()))))
+    property(vecs(u8s()).map(|data| (data.clone(), format!("{:02x}", data.as_hex()))))
         .check(|(_, s)| {
             let len = s.len();
             let body = match s.get(1..len-1) {
@@ -34,8 +34,8 @@ fn should_group_u8_as_blocks_of_two() {
 }
 
 #[test]
-fn should_group_u32_as_blocks_of_eight() {
-    property(vecs(u32s()).map(|data| (data.clone(), format!("{:x}", data.as_hex()))))
+fn should_group_u32_as_blocks_of_eight_when_specified() {
+    property(vecs(u32s()).map(|data| (data.clone(), format!("{:08x}", data.as_hex()))))
         .check(|(_, s)| {
             let len = s.len();
             let body = match s.get(1..len-1) {
@@ -50,7 +50,7 @@ fn should_group_u32_as_blocks_of_eight() {
 
 #[test]
 fn should_be_decodable_as_original_data() {
-    property(vecs(u32s()).map(|data| (data.clone(), format!("{:X}", data.as_hex()))))
+    property(vecs(u32s()).map(|data| (data.clone(), format!("{:x}", data.as_hex()))))
         .check(|(orig, s)| -> std::result::Result<bool, _> {
             let len = s.len();
             let body = match s.get(1..len-1) {
