@@ -7,6 +7,5 @@ name = "hex-slice"
 repository = "https://github.com/cstorey/hex-slice/"
 version = "0.1.0"
 
-[dev-dependencies.suppositions]
-git = "https://github.com/cstorey/suppositions.git"
-optional = false
+[dev-dependencies]
+suppositions = "0.1.2"

@@ -47,3 +47,21 @@ fn should_group_u32_as_blocks_of_eight() {
             body.split_whitespace().all(|chunk| chunk.len() == 8)
         });
 }
+
+#[test]
+fn should_be_decodable_as_original_data() {
+    property(vecs(u32s()).map(|data| (data.clone(), format!("{:X}", data.as_hex()))))
+        .check(|(orig, s)| -> std::result::Result<bool, _> {
+            let len = s.len();
+            let body = match s.get(1..len-1) {
+                Some(slice) => slice,
+                // Should always have a middle.
+                None => return Ok(false),
+            };
+
+            body.split_whitespace()
+                .map(|chunk| u32::from_str_radix(chunk, 16))
+                .collect::<Result<Vec<u32>, _>>()
+                .map(|d| d == orig)
+        });
+}
