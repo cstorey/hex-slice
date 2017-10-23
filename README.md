@@ -15,5 +15,4 @@ fn main() {
 }
 ```
 
-Displays: `[0 1 2 3]` on standard output.
-
+Displays: `[0 1 2 3]` on standard output (available with `cargo run --example trivial`).
