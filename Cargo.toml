@@ -1,6 +1,6 @@
 [package]
 name = "hex-slice"
-version = "0.1.0"
+version = "0.1.1"
 description = "Extends the std::fmt::*Hex traits to slices"
 authors = ["Ceri Storey <cez@necrofish.org.uk>"]
 repository = "https://github.com/cstorey/hex-slice/"
