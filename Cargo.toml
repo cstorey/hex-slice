@@ -6,5 +6,6 @@ authors = ["Ceri Storey <cez@necrofish.org.uk>"]
 repository = "https://github.com/cstorey/hex-slice/"
 documentation = "https://cstorey.github.io/hex-slice/hex_slice/index.html"
 license = "MIT"
+readme = "README.md"
 
 [dependencies]
