@@ -15,5 +15,5 @@ fn main() {
 }
 ```
 
-Displays: `[0000 0001 0002 0003]` on standard output.
+Displays: `[0 1 2 3]` on standard output.
 
