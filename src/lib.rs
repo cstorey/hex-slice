@@ -19,9 +19,26 @@ use std::fmt::Write;
 
 pub struct Hex<'a, T: 'a>(&'a [T]);
 
+pub struct PlainHex<'a, T: 'a> {
+    slice: &'a [T],
+    with_spaces: bool,
+}
+
 pub trait AsHex {
     type Item;
     fn as_hex<'a>(&'a self) -> Hex<'a, Self::Item>;
+
+    fn plain_hex<'a>(&'a self, with_spaces: bool) -> PlainHex<'a, Self::Item>;
+}
+
+fn fmt_inner_hex<T, F: Fn(&T, &mut fmt::Formatter) -> fmt::Result>(slice: &[T], f: &mut fmt::Formatter, fmt_fn: F, with_spaces: bool) -> fmt::Result {
+    for (i, val) in slice.iter().enumerate() {
+        if with_spaces && i > 0 {
+            f.write_char(' ')?;
+        }
+        fmt_fn(val, f)?;
+    }
+    Ok(())
 }
 
 impl<'a, T> Hex<'a, T> {
@@ -33,12 +50,7 @@ impl<'a, T> Hex<'a, T> {
 impl<'a, T: fmt::LowerHex> fmt::LowerHex for Hex<'a, T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "[")?;
-        for (i, val) in self.0.iter().enumerate() {
-            if i > 0 {
-                f.write_char(' ')?;
-            }
-            fmt::LowerHex::fmt(val, f)?;
-        }
+        fmt_inner_hex(self.0, f, fmt::LowerHex::fmt, true)?;
         write!(f, "]")
     }
 }
@@ -46,13 +58,20 @@ impl<'a, T: fmt::LowerHex> fmt::LowerHex for Hex<'a, T> {
 impl<'a, T: fmt::UpperHex> fmt::UpperHex for Hex<'a, T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "[")?;
-        for (i, val) in self.0.iter().enumerate() {
-            if i > 0 {
-                f.write_char(' ')?;
-            }
-            fmt::UpperHex::fmt(val, f)?;
-        }
+        fmt_inner_hex(self.0, f, fmt::UpperHex::fmt, true)?;
         write!(f, "]")
+    }
+}
+
+impl<'a, T: fmt::LowerHex> fmt::LowerHex for PlainHex<'a, T> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        fmt_inner_hex(self.slice, f, fmt::LowerHex::fmt, self.with_spaces)
+    }
+}
+
+impl<'a, T: fmt::UpperHex> fmt::UpperHex for PlainHex<'a, T> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        fmt_inner_hex(self.slice, f, fmt::UpperHex::fmt, self.with_spaces)
     }
 }
 
@@ -60,5 +79,12 @@ impl<T> AsHex for [T] {
     type Item = T;
     fn as_hex<'a>(&'a self) -> Hex<'a, Self::Item> {
         Hex::hex(self)
+    }
+
+    fn plain_hex<'a>(&'a self, with_spaces: bool) -> PlainHex<'a, Self::Item> {
+        PlainHex {
+            slice: self,
+            with_spaces,
+        }
     }
 }
