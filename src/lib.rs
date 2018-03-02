@@ -13,9 +13,10 @@
 //! }
 //! ```
 
+#![no_std]
 
-use std::fmt;
-use std::fmt::Write;
+use core::fmt;
+use core::fmt::Write;
 
 pub struct Hex<'a, T: 'a>(&'a [T]);
 
