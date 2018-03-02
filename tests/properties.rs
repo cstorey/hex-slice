@@ -65,3 +65,30 @@ fn should_be_decodable_as_original_data() {
                 .map(|d| d == orig)
         });
 }
+
+#[test]
+fn plain_hex_should_group_u8_as_blocks_of_two() {
+    property(vecs(u8s()).map(|data| (data.clone(), format!("{:02x}", data.plain_hex(true)))))
+        .check(|(_, s)| {
+            s.split_whitespace().all(|chunk| chunk.len() == 2)
+        });
+}
+
+#[test]
+fn plain_hex_should_group_u32_as_blocks_of_eight_when_specified() {
+    property(vecs(u32s()).map(|data| (data.clone(), format!("{:08x}", data.plain_hex(true)))))
+        .check(|(_, s)| {
+            s.split_whitespace().all(|chunk| chunk.len() == 8)
+        });
+}
+
+#[test]
+fn plain_hex_should_be_decodable_as_original_data() {
+    property(vecs(u32s()).map(|data| (data.clone(), format!("{:x}", data.plain_hex(true)))))
+        .check(|(orig, s)| -> std::result::Result<bool, _> {
+            s.split_whitespace()
+                .map(|chunk| u32::from_str_radix(chunk, 16))
+                .collect::<Result<Vec<u32>, _>>()
+                .map(|d| d == orig)
+        });
+}
