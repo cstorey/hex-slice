@@ -33,29 +33,27 @@ impl<'a, T> Hex<'a, T> {
 
 impl<'a, T: fmt::LowerHex> fmt::LowerHex for Hex<'a, T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        try!(write!(f, "["));
+        write!(f, "[")?;
         for (i, val) in self.0.iter().enumerate() {
             if i > 0 {
-                try!(f.write_char(' '));
+                f.write_char(' ')?;
             }
-            try!(fmt::LowerHex::fmt(val, f));
+            fmt::LowerHex::fmt(val, f)?;
         }
-        try!(write!(f, "]"));
-        Ok(())
+        write!(f, "]")
     }
 }
 
 impl<'a, T: fmt::UpperHex> fmt::UpperHex for Hex<'a, T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        try!(write!(f, "["));
+        write!(f, "[")?;
         for (i, val) in self.0.iter().enumerate() {
             if i > 0 {
-                try!(f.write_char(' '));
+                f.write_char(' ')?;
             }
-            try!(fmt::UpperHex::fmt(val, f));
+            fmt::UpperHex::fmt(val, f)?;
         }
-        try!(write!(f, "]"));
-        Ok(())
+        write!(f, "]")
     }
 }
 
